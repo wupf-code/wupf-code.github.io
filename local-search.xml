@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>并发编程技术点</title>
+    <link href="/2022/10/03/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF%E7%82%B9/"/>
+    <url>/2022/10/03/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF%E7%82%B9/</url>
+    
+    <content type="html"><![CDATA[<h3id="一什么是进程线程协程他们之间的关系是怎样的">一、什么是进程、线程、协程，他们之间的关系是怎样的</h3><p>进程:本质上是一个独立执行的程序，进程是操作系统进行资源分配和调度的基本概念，操作系统进行资源分配和调度的一个独立单位线程:是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。一个进程中可以并发多个线程，每条线程执行不同的任务，切换受系统控制。协程:又称为微线程，是一种用户态的轻量级线程，协程不像线程和进程需要进行系统内核上的上下文切换，协程的上下文切换是由用户自己决定的，有自己的上下文，所以说是轻量级的线程，也称之为用户级别的线程就叫协程，一个线程可以多个协程,线程进程都是同步机制，而协程则是异步Java的原生语法中并没有实现协程,目前python、Lua和GO等语言支持关系：一个进程可以有多个线程，它允许计算机同时运行两个或多个程序。线程是进程的最小执行单位，CPU的调度切换的是进程和线程，进程和线程多了之后调度会消耗大量的CPU，CPU上真正运行的是线程，线程可以对应多个协程</p><h4 id="section"></h4><ul><li><p>协程对于多线程有什么优缺点吗</p><p>优点： 非常快速的上下文切换，不用系统内核的上下文切换，减小开销单线程即可实现高并发，单核CPU可以支持上万的协程由于只有一个线程，也不存在同时写变量的冲突，在协程中控制共享资源不需要加锁缺点： 协程无法利用多核资源，本质也是个单线程协程需要和进程配合才能运行在多CPU上 目前java没成熟的第三方库，存在风险调试debug存在难度，不利于发现问题</p></li></ul><h3 id="二并发并行的区别">二、并发、并行的区别</h3><p>并发 concurrency： 一台处理器上同时处理任务,这个同时实际上是交替处理多个任务，程序中可以同时拥有两个或者多个线程，当有多个线程在操作时,如果系统只有一个CPU,则它根本不可能真正同时进行一个以上的线程,它只能把CPU运行时间划分成若干个时间段,再将时间段分配给各个线程执行并行 parallellism：多个CPU上同时处理多个任务，一个CPU执行一个进程时，另一个CPU可以执行另一个进程，两个进程互不抢占CPU资源，可以同时进行</p><p>并发指在一段时间内宏观上去处理多个任务。并行指同一个时刻，多个任务确实真的同时运行。<br />例子： 并发是一心多用，听课和看电影，但是CPU大脑只有一个，所以轮着来并行：火影忍者中的影分身，有多个你出现，可以分别做不同的事情一个项目经理A和3个程序B C D的故事 单线程并发：A给B讲完需求，B自己去实现，期间A继续给C和D讲，不用等待某个程序员去完成，期间项目经理没空闲下来并行：直接找3个项目经理分别分配给3个程序员</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java语法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>java集合框架List</title>
+    <link href="/2022/09/30/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6List/"/>
+    <url>/2022/09/30/java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6List/</url>
+    
+    <content type="html"><![CDATA[<h3id="vector和arraylistlinkedlist联系和区别分别的使用场景">Vector和ArrayList、LinkedList联系和区别？分别的使用场景</h3><ul><li>线程安全<ul><li>ArrayList：底层是数组实现，线程不安全，查询和修改非常快，但是增加和删除慢</li><li>LinkedList:底层是双向链表，线程不安全，查询和修改速度慢，但是增加和删除速度快</li><li>Vector:底层是数组实现，线程安全的，操作的时候使用synchronized进行加锁</li></ul></li><li>使用场景<ul><li>Vector已经很少用了</li><li>增加和删除场景多则用LinkedList</li><li>查询和修改多则用ArrayList</li></ul></li></ul><h3id="如果需要保证线程安全arraylist应该怎么做">如果需要保证线程安全，ArrayList应该怎么做</h3><ol type="1"><li>方式一：自己写个包装类，根据业务一般是add/update/remove加锁</li><li>方式二：Collections.synchronizedList(new ArrayList&lt;&gt;());使用synchronized加锁</li><li>方式三：CopyOnWriteArrayList&lt;&gt;() 使用ReentrantLock加锁</li></ol><h3id="collections.synchronizedlist和copyonwritearraylist区别">Collections.synchronizedList和CopyOnWriteArrayList&lt;&gt;()区别</h3><ul><li>CopyOnWriteArrayList：执行修改操作时，会拷贝一份新的数组进行操作（add、set、remove等)，代价十分昂贵，在执行完修改后将原来集合指向新的集合来完成修改操作，源码里面用ReentrantLock可重入锁来保证不会有多个线程同时拷贝一份数组<ul><li>场景：读高性能，适用读操作远远大于写操作的场景中使用(读的时候是不需要加锁的，直接获取，删除和增加是需要加锁的,读多写少)</li></ul></li><li>Collections.synchronizedList：线程安全的原因是因为它几乎在每个方法中都使用了synchronized同步*锁<ul><li>场景：写操作性能比CopyOnWriteArrayList好，读操作性能并不如CopyOnWriteArrayList</li></ul></li></ul><h3id="copyonwritearraylist的设计思想是怎样的有什么缺点">CopyOnWriteArrayList的设计思想是怎样的,有什么缺点？</h3><ul><li><p>设计思想：读写分离+最终一致</p><p>缺点：内存占用问题,写时复制机制,内存里会同时驻扎两个对象的内存，旧的对象和新写入的对象,如果对象大则容易发生YongGC和Full GC</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java语法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>try-catch-finally执行流程</title>
+    <link href="/2022/09/29/try-catch-finally%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/"/>
+    <url>/2022/09/29/try-catch-finally%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/</url>
+    
+    <content type="html"><![CDATA[<p>在执行try、catch中的return之前一定会执行finally中的代码（如果finally存在），如果finally中有return语句，就会直接执行finally中的return方法，所以finally中的return语句一定会被执行的</p><p>执行流程：finally执行前的代码里面有包含return，则会先确定return返回值，然后再执行finally的代码，最后再执行return</p><p>代码示例</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">test1</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            System.out.println(a / <span class="hljs-number">0</span>);<br>            a = <span class="hljs-number">2</span>;<br>        &#125; <span class="hljs-keyword">catch</span> (ArithmeticException e) &#123;<br>            a = <span class="hljs-number">3</span>;<br>            <span class="hljs-keyword">return</span> a; <br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>            a = <span class="hljs-number">4</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> a;<br>    &#125;<br></code></pre></td></tr></table></figure><p>上段代码最后返回值为3；执行try语句时，发生异常，catch中捕获，catch中有return语句，此时确定返回值为3，然后执行finally块，finally执行结束后回到catch，返回值已经确定，finally中重新赋值不会影响返回值，所以返回3；</p><p>下一段代码，finally中也有返回语句</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">test2</span><span class="hljs-params">()</span> &#123;<br>       <span class="hljs-type">int</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>       <span class="hljs-keyword">try</span> &#123;<br>           System.out.println(a / <span class="hljs-number">0</span>);<br>           a = <span class="hljs-number">2</span>;<br>       &#125; <span class="hljs-keyword">catch</span> (ArithmeticException e) &#123;<br>           a = <span class="hljs-number">3</span>;<br>           <span class="hljs-keyword">return</span> a;<br>       &#125; <span class="hljs-keyword">finally</span> &#123;<br>           a = <span class="hljs-number">4</span>; <br>           <span class="hljs-keyword">return</span> a;<br>       &#125;<br>   &#125;<br></code></pre></td></tr></table></figure><p>此时返回4，在finally中遇到return语句，重新确定返回值，并且执行返回语句，程序结束。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java语法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>运算符</title>
+    <link href="/2022/09/29/%E8%BF%90%E7%AE%97%E7%AC%A6/"/>
+    <url>/2022/09/29/%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
+    
+    <content type="html"><![CDATA[<h3 id="一运算符-和和的区别">一、运算符&amp;和&amp;&amp;、|和||的区别</h3><blockquote><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta">&amp; 按位与操作</span><br>    只有对应的两个二进制数为<span class="hljs-number">1</span>时，结果位才为<span class="hljs-number">1</span><br>    <span class="hljs-number">1</span><span class="hljs-meta">&amp;1 = 1</span><br>    <span class="hljs-number">1</span><span class="hljs-meta">&amp;0 = 0</span><br>    <span class="hljs-number">0</span><span class="hljs-meta">&amp;1 = 0</span><br>    <span class="hljs-number">0</span><span class="hljs-meta">&amp;0 = 0</span><br><span class="hljs-string">| 按位或操作</span><br>    有一个为<span class="hljs-number">1</span>的时候，结果位就为<span class="hljs-number">1</span><br>    <span class="hljs-number">1</span><span class="hljs-string">|1 = 1</span><br>    <span class="hljs-number">1</span><span class="hljs-string">|0 = 1</span><br>    <span class="hljs-number">0</span><span class="hljs-string">|1 = 1</span><br>    <span class="hljs-number">0</span><span class="hljs-string">|0 = 0</span><br></code></pre></td></tr></table></figure></blockquote><blockquote><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-meta">&amp; 和 &amp;&amp; 都可以实现 和 这个功能</span><br>区别：<span class="hljs-meta">&amp; 两边都运算，而 &amp;&amp; 先算 &amp;&amp; 左侧，若左侧为false 那么右侧就不运算，判断语句中推荐使用 &amp;&amp;，效率更高</span><br><br><span class="hljs-string">| 和 || 和上面类似</span><br>区别：<span class="hljs-string">||只要满足第一个条件，后面的条件就不再判断，而|要对所有的条件进行判断</span><br><br>把<span class="hljs-meta">&amp;&amp;和||称之为短路运算符</span><br></code></pre></td></tr></table></figure></blockquote><h3 id="二">二、&lt;<和>&gt;</h3><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs excel">将一个数左移<span class="hljs-built_in">n</span>位，相当于乘以<span class="hljs-number">2</span>的<span class="hljs-built_in">n</span>次方，位运算是CPU直接支持的，所以效率高<br></code></pre></td></tr></table></figure><p>计算2*8 使用<code>2 &lt;&lt; 3</code> 比<code>2*8</code>效率更高</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">常见的JDK源码里面HashMap的默认容量16<br>int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; <span class="hljs-string">4; // aka 16</span><br><span class="hljs-string"></span><br><span class="hljs-string">直接是二进制操作了，表示1左移4</span>位，变成10000，转为10进制也就是16, 直接以二进制形式去运行，效率更高<br></code></pre></td></tr></table></figure><h3 id="三运算符">三、^运算符</h3><p>传递两个非0的int数值进去，实现变量交换的方式，有几种方式？</p><ol type="1"><li><p>```java public static void swap(int a, int b){</p><pre><code class="hljs">    System.out.printf(&quot;a=%d, b=%d&quot;,a,b);    a = a + b;    b = a - b ;    a = a - b;    System.out.printf(&quot;\na=%d, b=%d&quot;,a,b);&#125;</code></pre><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br>   通过加减运算实现交换，不需要额外定义变量<br><br><span class="hljs-number">2.</span> 异或运算 (一个数与另一个数异或两次是其本身， 一个数和自身异或结果是<span class="hljs-number">0</span> )<br><br>   ```<span class="hljs-function">java</span><br><span class="hljs-function">    <span class="hljs-keyword">public</span> <span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title">swap2</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span></span>&#123;<br>   <br>        System.out.<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;a=%d, b=%d&quot;</span>,a,b);<br>   <br>        a = a^b;   <span class="hljs-comment">// a1 = a^b</span><br>        b = b^a;   <span class="hljs-comment">// b = b^a^b</span><br>        a = a^b;   <span class="hljs-comment">// a = a1^b = a^b^a</span><br>   <br>        System.out.<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\na=%d, b=%d&quot;</span>,a,b);<br>    &#125;<br></code></pre></td></tr></table></figure><p>通过^运算符，效率更高</p></li></ol><h3 id="四和euqals">四、==和euqals</h3><ul><li>基本数据类型比较 要用==判断是否相等</li><li>引用数据类型：==比较的是内存地址是否一样，不同对象的内存地址不一样，equals比较的是具体的内容，也可以让开发者去定义什么条件去判断两个对象是否一样</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java语法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Lambda</title>
+    <link href="/2022/09/28/Lambda/"/>
+    <url>/2022/09/28/Lambda/</url>
+    
+    <content type="html"><![CDATA[<h2 id="lambda表达式">Lambda表达式</h2><h3 id="简介">简介</h3><p>Lambda表达式（也称闭包），是Java8中最受期待和欢迎的新特性之一。在Java语法层面Lambda表达式允许函数作为一个方法的参数（函数作为参数传递到方法中），或者把代码看成数据。Lambda表达式可以简化函数式接口的使用。函数式接口就是一个只具有一个抽象方法的普通接口，像这样的接口就可以使用Lambda表达式来简化代码的编写。</p><p><strong>使用Lambda表达式的前提</strong><strong>对应接口有且只有一个抽象方法！！</strong>！</p><h3 id="基础语法">基础语法</h3><p>Lambda 表达式的基础语法：Java8中引入了一个新的操作符 “-&gt;”该操作符称为箭头操作符或 Lambda 操作符 箭头操作符将 Lambda表达式拆分成两部分： 左侧：Lambda 表达式的参数列表 右侧：Lambda表达式中所需执行的功能， 即 Lambda 体<code>(args1, args2...) -&gt; &#123;&#125;;</code></p><h3 id="lambda表达式的重要特征">Lambda表达式的重要特征</h3><ul><li>可选类型声明：不需要声明参数类型，编译器可以统一识别参数值。</li><li>可选的参数圆括号：一个参数无需定义圆括号，但多个参数需要定义圆括号。</li><li>可选的大括号：如果主体包含了一个语句，就不需要使用大括号。</li><li>可选的返回关键字：如果主体只有一个表达式返回值则编译器会自动返回值，大括号需要指定明表达式返回了一个数值。</li></ul><h3 id="使用lambda表达式的优缺点">使用Lambda表达式的优缺点</h3><ul><li><p>优点</p><p>使用Lambda表达式可以简化接口匿名内部类的使用，可以减少类文件的生成</p></li><li><p>缺点</p><p>使用Lambda表达式会减弱代码的可读性，而且Lambda表达式的使用局限性比较强，只能适用于接口只有一个抽象方法时使用，不宜调试。</p></li></ul><h3 id="使用案例">使用案例</h3><ol type="1"><li><p>例1、用lambda表达式实现Runnable</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// Java 8之前：</span><br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Runnable</span>() &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>    System.out.println(<span class="hljs-string">&quot;Before Java8, too much code for too little to do&quot;</span>);<br>    &#125;<br>&#125;).start();<br><br><span class="hljs-comment">//Java 8方式：</span><br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>( () -&gt; System.out.println(<span class="hljs-string">&quot;In Java8, Lambda expression rocks !!&quot;</span>) ).start();<br></code></pre></td></tr></table></figure></li><li><p>例2、使用Java 8 lambda表达式进行事件处理</p><p>如果你用过SwingAPI编程，你就会记得怎样写事件监听代码。这又是一个旧版本简单匿名类的经典用例，但现在可以不这样了。你可以用lambda表达式写出更好的事件监听代码，如下所示：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// Java 8之前：</span><br><span class="hljs-type">JButton</span> <span class="hljs-variable">show</span> <span class="hljs-operator">=</span>  <span class="hljs-keyword">new</span> <span class="hljs-title class_">JButton</span>(<span class="hljs-string">&quot;Show&quot;</span>);<br>show.addActionListener(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ActionListener</span>() &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">actionPerformed</span><span class="hljs-params">(ActionEvent e)</span> &#123;<br>    System.out.println(<span class="hljs-string">&quot;Event handling without lambda expression is boring&quot;</span>);<br>    &#125;<br>&#125;);<br><br><span class="hljs-comment">// Java 8方式：</span><br>show.addActionListener((e) -&gt; &#123;<br>    System.out.println(<span class="hljs-string">&quot;Light, Camera, Action !! Lambda expressions Rocks&quot;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure></li><li><p>例3、使用lambda表达式对列表进行迭代</p><p>如果你使过几年Java，你就知道针对集合类，最常见的操作就是进行迭代，并将业务逻辑应用于各个元素，例如处理订单、交易和事件的列表。由于Java是命令式语言，Java8之前的所有循环代码都是顺序的，即可以对其元素进行并行化处理。如果你想做并行过滤，就需要自己写代码，这并不是那么容易。通过引入lambda表达式和默认方法，将做什么和怎么做的问题分开了，这意味着Java集合现在知道怎样做迭代，并可以在API层面对集合元素进行并行处理。下面的例子里，我将介绍如何在使用lambda或不使用lambda表达式的情况下迭代列表。你可以看到列表现在有了一个forEach() 方法，它可以迭代所有对象，并将你的lambda代码应用在其中</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// Java 8之前：</span><br><span class="hljs-type">List</span> <span class="hljs-variable">features</span> <span class="hljs-operator">=</span> Arrays.asList(<span class="hljs-string">&quot;Lambdas&quot;</span>, <span class="hljs-string">&quot;Default Method&quot;</span>, <span class="hljs-string">&quot;Stream API&quot;</span>, <span class="hljs-string">&quot;Date and Time API&quot;</span>);<br><span class="hljs-keyword">for</span> (String feature : features) &#123;<br>    System.out.println(feature);<br>&#125;<br><br><span class="hljs-comment">// Java 8之后：</span><br><span class="hljs-type">List</span> <span class="hljs-variable">features</span> <span class="hljs-operator">=</span> Arrays.asList(<span class="hljs-string">&quot;Lambdas&quot;</span>, <span class="hljs-string">&quot;Default Method&quot;</span>, <span class="hljs-string">&quot;Stream API&quot;</span>, <span class="hljs-string">&quot;Date and Time API&quot;</span>);<br>features.forEach(n -&gt; System.out.println(n));<br><br><span class="hljs-comment">// 使用Java 8的方法引用更方便，方法引用由::双冒号操作符标示，</span><br><span class="hljs-comment">// 看起来像C++的作用域解析运算符</span><br>features.forEach(System.out::println);<br></code></pre></td></tr></table></figure></li></ol><h3 id="小结">小结</h3><p>lambda表达式可以是使代码更为简洁，java9新特性中加入Stream。Stream使用一种类似用 SQL 语句从数据库查询数据的直观方式来提供一种对 Java集合运算和表达的高阶抽象。</p><p>StreamAPI可以极大提高Java程序员的生产力，让程序员写出高效率、干净、简洁的代码。</p><p>这种风格将要处理的元素集合看作一种流， 流在管道中传输，并且可以在管道的节点上进行处理， 比如筛选， 排序，聚合等。</p><p>元素流在管道中经过中间操作（intermediateoperation）的处理，最后由最终操作(terminaloperation)得到前面处理的结果。</p><p>lambda在Stream中进行操作时会被大量使用。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java语法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>归并排序</title>
+    <link href="/2022/09/27/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/"/>
+    <url>/2022/09/27/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</url>
+    
+    <content type="html"><![CDATA[<p>给定你一个长度为 <span class="math inline">\(n\)</span>的整数数列。</p><p>请你使用归并排序对这个数列按照从小到大进行排序。</p><p>并将排好序的数列按顺序输出。</p><h4 id="输入格式">输入格式</h4><p>输入共两行，第一行包含整数 <spanclass="math inline">\(n\)</span>。</p><p>第二行包含 <span class="math inline">\(n\)</span>个整数（所有整数均在 <span class="math inline">\(1 \sim 10^9\)</span>范围内），表示整个数列。</p><h4 id="输出格式">输出格式</h4><p>输出共一行，包含 <span class="math inline">\(n\)</span>个整数，表示排好序的数列。</p><h4 id="数据范围">数据范围</h4><p><span class="math inline">\(1 \le n \le 100000\)</span></p><h4 id="输入样例">输入样例：</h4><pre><code class="hljs">53 1 2 4 5</code></pre><h4 id="输出样例">输出样例：</h4><pre><code class="hljs">1 2 3 4 5</code></pre><h3 id="参考代码">参考代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs c++"><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N=<span class="hljs-number">1e6</span>+<span class="hljs-number">10</span>;<br><span class="hljs-type">int</span> n;<br><span class="hljs-type">int</span> a[N],t[N];<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">merge_sort</span><span class="hljs-params">(<span class="hljs-type">int</span> a[],<span class="hljs-type">int</span> l,<span class="hljs-type">int</span> r)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span>(l&gt;=r)<span class="hljs-keyword">return</span>;<br>    <span class="hljs-type">int</span> i=l,mid=l+r&gt;&gt;<span class="hljs-number">1</span>;<br>    <span class="hljs-type">int</span> j=mid+<span class="hljs-number">1</span>;<br>    <span class="hljs-built_in">merge_sort</span>(a,l,mid),<span class="hljs-built_in">merge_sort</span>(a,j,r);<br>    <span class="hljs-type">int</span> k=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span>(i&lt;=mid&amp;&amp;j&lt;=r)<br>    &#123;<br>        <br>        <span class="hljs-keyword">if</span>(a[i]&lt;=a[j])t[k++]=a[i++];<br>        <span class="hljs-keyword">else</span> t[k++]=a[j++];<br>    &#125;<br>    <span class="hljs-keyword">while</span>(i&lt;=mid)t[k++]=a[i++];<br>    <span class="hljs-keyword">while</span>(j&lt;=r)t[k++]=a[j++];<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=l,k=<span class="hljs-number">0</span>;i&lt;=r;i++)a[i]=t[k++];<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin&gt;&gt;n;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>    &#123;<br>        cin&gt;&gt;a[i];<br>    &#125;<br>    <span class="hljs-built_in">merge_sort</span>(a,<span class="hljs-number">0</span>,n<span class="hljs-number">-1</span>);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>    cout&lt;&lt;a[i]&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>归并排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>快速排序</title>
+    <link href="/2022/09/27/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"/>
+    <url>/2022/09/27/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
+    
+    <content type="html"><![CDATA[<p>给定你一个长度为 <span class="math inline">\(n\)</span>的整数数列。</p><p>请你使用快速排序对这个数列按照从小到大进行排序。</p><p>并将排好序的数列按顺序输出。</p><h4 id="输入格式">输入格式</h4><p>输入共两行，第一行包含整数 <spanclass="math inline">\(n\)</span>。</p><p>第二行包含 <span class="math inline">\(n\)</span>个整数（所有整数均在 <span class="math inline">\(1 \sim 10^9\)</span>范围内），表示整个数列。</p><h4 id="输出格式">输出格式</h4><p>输出共一行，包含 <span class="math inline">\(n\)</span>个整数，表示排好序的数列。</p><h4 id="数据范围">数据范围</h4><p><span class="math inline">\(1 \le n \le 100000\)</span></p><h4 id="输入样例">输入样例：</h4><pre><code class="hljs">53 1 2 4 5</code></pre><h4 id="输出样例">输出样例：</h4><pre><code class="hljs">1 2 3 4 5</code></pre><h3 id="参考代码">参考代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span><span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-type">InputStreamReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(System.in);<br>        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">br</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(in);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> Integer.parseInt(br.readLine());<br>        <span class="hljs-type">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[num];<br>        String[] res = br.readLine().split(<span class="hljs-string">&quot; &quot;</span>);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; num; i++) &#123;<br>            arr[i] = Integer.parseInt(res[i]);<br>        &#125;<br>        quickSort(arr, <span class="hljs-number">0</span>, num-<span class="hljs-number">1</span>);<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; num; i++) &#123;<br>            System.out.print(arr[i] + <span class="hljs-string">&quot; &quot;</span>);<br>        &#125;<br>        br.close();<br>    &#125;<br>     <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">quickSort</span><span class="hljs-params">(<span class="hljs-type">int</span>[] q, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r)</span> &#123;<br>         <span class="hljs-keyword">if</span> (l &gt;= r) <span class="hljs-keyword">return</span>;<br>         <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> l-<span class="hljs-number">1</span>, j = r+<span class="hljs-number">1</span>;<br>         <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> (l+r)/<span class="hljs-number">2</span>;<br>         <span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span>  q[mid];<br>         <span class="hljs-keyword">while</span>(i &lt; j)&#123;<br>             <span class="hljs-keyword">while</span>(q[++i] &lt; x);<br>             <span class="hljs-keyword">while</span>(q[--j] &gt; x);<br>             <span class="hljs-keyword">if</span> (i &lt; j) &#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> q[i];<br>                q[i] = q[j];<br>                q[j] = temp;<br>            &#125;<br>         &#125;<br>         quickSort(q,l,j);<br>         quickSort(q,j+<span class="hljs-number">1</span>,r);<br>     &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>快速排序</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>KMP字符串</title>
+    <link href="/2022/09/26/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    <url>/2022/09/26/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目描述">题目描述</h3><p>给定一个字符串 <span class="math inline">\(S\)</span>，以及一个模式串<spanclass="math inline">\(P\)</span>，所有字符串中只包含大小写英文字母以及阿拉伯数字。</p><p>模式串 <span class="math inline">\(P\)</span> 在字符串 <spanclass="math inline">\(S\)</span> 中多次作为子串出现。</p><p>求出模式串 <span class="math inline">\(P\)</span> 在字符串 <spanclass="math inline">\(S\)</span> 中所有出现的位置的起始下标。</p><h4 id="输入格式">输入格式</h4><p>第一行输入整数 <span class="math inline">\(N\)</span>，表示字符串<span class="math inline">\(P\)</span> 的长度。</p><p>第二行输入字符串 <span class="math inline">\(P\)</span>。</p><p>第三行输入整数 <span class="math inline">\(M\)</span>，表示字符串<span class="math inline">\(S\)</span> 的长度。</p><p>第四行输入字符串 <span class="math inline">\(S\)</span>。</p><h4 id="输出格式">输出格式</h4><p>共一行，输出所有出现位置的起始下标（下标从 <spanclass="math inline">\(0\)</span> 开始计数），整数之间用空格隔开。</p><h4 id="数据范围">数据范围</h4><p><span class="math inline">\(1 \le N \le 10^5\)</span><br /><span class="math inline">\(1 \le M \le 10^6\)</span></p><h4 id="输入样例">输入样例：</h4><pre><code class="hljs">3aba5ababa</code></pre><h4 id="输出样例">输出样例：</h4><pre><code class="hljs">0 2</code></pre><hr /><h3 id="算法">算法</h3><h4 id="c-代码">C++ 代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">//Scanner会超时</span><br>        <span class="hljs-comment">// Scanner cin = new Scanner(System.in);</span><br>        <span class="hljs-type">int</span> n, m;<br>        String p, s;<br>        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(System.in));<br>        <span class="hljs-type">BufferedWriter</span> <span class="hljs-variable">writer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedWriter</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">OutputStreamWriter</span>(System.out));<br>        n = Integer.parseInt(reader.readLine());<br>        p = reader.readLine();<br>        m = Integer.parseInt(reader.readLine());<br>        s = reader.readLine();<br>        <span class="hljs-comment">// n = cin.nextInt();</span><br>        <span class="hljs-comment">// p = cin.next();</span><br>        <span class="hljs-comment">// m = cin.nextInt();</span><br>        <span class="hljs-comment">// s = cin.next();</span><br>        p = <span class="hljs-string">&quot; &quot;</span> + p;<br>        s = <span class="hljs-string">&quot; &quot;</span> + s;<br>        <span class="hljs-type">int</span>[] next = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n+<span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>, j = <span class="hljs-number">0</span>; i &lt;= n; i++)&#123;<br>            <span class="hljs-keyword">while</span>(j &gt; <span class="hljs-number">0</span> &amp;&amp; p.charAt(i) != p.charAt(j+<span class="hljs-number">1</span>))j = next[j];<br>            <span class="hljs-keyword">if</span>(p.charAt(j+<span class="hljs-number">1</span>) == p.charAt(i))<br>                j++;<br>            next[i] = j;<br>        &#125;<br>        <br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>, j = <span class="hljs-number">0</span>; i &lt;= m; i++)&#123;<br>            <span class="hljs-keyword">while</span>(j &gt; <span class="hljs-number">0</span> &amp;&amp; p.charAt(j+<span class="hljs-number">1</span>) != s.charAt(i))j = next[j];<br>            <span class="hljs-keyword">if</span>(p.charAt(j+<span class="hljs-number">1</span>) == s.charAt(i))<br>                j++;<br>            <span class="hljs-keyword">if</span>(j == n)&#123;<br>                writer.write(i - n +<span class="hljs-string">&quot; &quot;</span>);<br>                j = next[j];<br>            &#125;<br>        &#125;<br>        writer.flush();<br>        <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>KMP</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>java8时间类</title>
+    <link href="/2022/09/25/java8%E6%97%B6%E9%97%B4%E7%B1%BB/"/>
+    <url>/2022/09/25/java8%E6%97%B6%E9%97%B4%E7%B1%BB/</url>
+    
+    <content type="html"><![CDATA[<h2 id="date和calendar的缺点">Date和Calendar的缺点</h2><p>Java原本提供了Data和Calendar用于处理日期、时间的类，包括创建日期、时间对象，获取系统当前日期、时间等操作。但Date不仅无法实现国际化，而且它对不同属性也使用了前后矛盾的偏移量，比如月份与小时都是从0开始的，月份中的天则是从1开始的，年又是从1900开始的，而java.util.Calendar则显得过于复杂。从下面介绍可以看到Java对日期、时间处理不足。Java洗浴了Joda-Time库（一个被广泛使用的日期、时间库）的经验，提供了一套全新的日期时间库。</p><h2 id="定义">定义</h2><ul><li>LocalDateTime：A date-time without a time-zone in the ISO-8601calendar system, such as 2007-12-03T10:15:30.</li><li>ZonedDateTime：A date-time with a time-zone in the ISO-8601 calendarsystem, such as 2007-12-03T10:15:30+01:00 Europe/Paris.</li><li>ZoneId: A time-zone ID, such as Europe/Paris.</li><li>ZoneOffset:A time-zone offset from Greenwich/UTC, such as+02:00.</li></ul><p>LocalDateTime表示不带时区的时间，ZonedDateTime是由LocalDateTime和时区ZoneId或者LocalDateTime和与格林标准时间的差ZoneOffset组成</p><h3 id="使用">使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 字符串时间</span><br><span class="hljs-type">String</span> <span class="hljs-variable">dateStr</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;2020-01-22 19:30:00&quot;</span>;<br><br><span class="hljs-comment">// 定义上海时区</span><br><span class="hljs-type">ZoneId</span> <span class="hljs-variable">zoneShanghai</span> <span class="hljs-operator">=</span> ZoneId.of(<span class="hljs-string">&quot;Asia/Shanghai&quot;</span>);<br><br><span class="hljs-comment">// 标准时间+3小时</span><br><span class="hljs-type">ZoneOffset</span> <span class="hljs-variable">zoneOffset</span> <span class="hljs-operator">=</span> ZoneOffset.ofHours(<span class="hljs-number">3</span>);<br><br><span class="hljs-comment">// 定义格式转换器</span><br><span class="hljs-type">DateTimeFormatter</span> <span class="hljs-variable">formatter</span> <span class="hljs-operator">=</span> DateTimeFormatter.ofPattern(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);<br><br><span class="hljs-comment">// 字符串时间转换为LocalDateTime格式</span><br><span class="hljs-type">LocalDateTime</span> <span class="hljs-variable">localDateTime</span> <span class="hljs-operator">=</span> LocalDateTime.from(formatter.parse(dateStr));<br><br><span class="hljs-comment">// 按上海时区定义ZonedDateTime时间</span><br><span class="hljs-type">ZonedDateTime</span> <span class="hljs-variable">dateTime1</span> <span class="hljs-operator">=</span> ZonedDateTime.of(localDateTime,zoneShanghai);<br><br><span class="hljs-comment">// +3时区</span><br><span class="hljs-type">ZonedDateTime</span> <span class="hljs-variable">dateTime2</span> <span class="hljs-operator">=</span> ZonedDateTime.of(localDateTime,zoneOffset);<br><br><span class="hljs-comment">// 日期转换，带时区</span><br><span class="hljs-type">String</span> <span class="hljs-variable">time1</span> <span class="hljs-operator">=</span> formatter.withZone(zoneShanghai).format(dateTime1);<br><br><span class="hljs-type">String</span> <span class="hljs-variable">time2</span> <span class="hljs-operator">=</span> formatter.withZone(zoneShanghai).format(dateTime2);<br><span class="hljs-comment">// time1 = &quot;2020-01-22 19:30:00&quot; , 对应的时区转换，日期没有问题</span><br><span class="hljs-comment">// time2 = &quot;2020-01-23 00:30:00&quot;， 使用了上海时区（+8小时时区），结果为+5个小时时间</span><br><br></code></pre></td></tr></table></figure><p>ZonedDateTime 和LocalDateTime时间格式都可以很方便的是做时间操作，下面仅已LocalDateTime举例</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 加一天，一周，一月  ，判断两个日期</span><br><span class="hljs-type">LocalDateTime</span> <span class="hljs-variable">newTime</span> <span class="hljs-operator">=</span> localDateTime.plusDays(<span class="hljs-number">1L</span>);<br>newDate = localDateTime.plusWeeks(<span class="hljs-number">1L</span>);<br>newDate = localDateTime.plusMonths(<span class="hljs-number">1L</span>);<br><br>localDateTime.isAfter(newDate);  <span class="hljs-comment">// false</span><br><br><span class="hljs-comment">// 获取周、月等信息</span><br>newDate.getDayOfWeek();<br>newDate.getMonth();<br><br><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java语法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>java</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
