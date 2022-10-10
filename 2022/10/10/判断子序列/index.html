@@ -16,15 +16,15 @@
   <meta name="author" content="wpf">
   <meta name="keywords" content="">
   
-    <meta name="description" content="给定两个升序排序的有序数组 \(A\) 和 \(B\)，以及一个目标值 \(x\)。 数组下标从 \(0\) 开始。 请你求出满足 \(A[i] + B[j] &#x3D; x\) 的数对 \((i, j)\)。 数据保证有唯一解。 输入格式 第一行包含三个整数 \(n,m,x\)，分别表示 \(A\) 的长度，\(B\) 的长度以及目标值 \(x\)。 第二行包含 \(n\) 个整数，表示">
+    <meta name="description" content="题目描述 给定一个长度为 \(n\) 的整数序列 \(a_1,a_2,…,a_n\) 以及一个长度为 \(m\) 的整数序列 \(b_1,b_2,…,b_m\)。 请你判断 \(a\) 序列是否为 \(b\) 序列的子序列。 子序列指序列的一部分项按原有次序排列而得的序列，例如序列 \(\\{a_1,a_3,a5\\}\) 是序列 \(\\{a_1,a_2,a_3,a_4,a_5\\}\">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数组元素目标和">
-<meta property="og:url" content="https://wupf-code.github.io/2022/10/06/%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9B%AE%E6%A0%87%E5%92%8C/index.html">
+<meta property="og:title" content="判断子序列">
+<meta property="og:url" content="https://wupf-code.github.io/2022/10/10/%E5%88%A4%E6%96%AD%E5%AD%90%E5%BA%8F%E5%88%97/index.html">
 <meta property="og:site_name" content="Ymswdfg">
-<meta property="og:description" content="给定两个升序排序的有序数组 \(A\) 和 \(B\)，以及一个目标值 \(x\)。 数组下标从 \(0\) 开始。 请你求出满足 \(A[i] + B[j] &#x3D; x\) 的数对 \((i, j)\)。 数据保证有唯一解。 输入格式 第一行包含三个整数 \(n,m,x\)，分别表示 \(A\) 的长度，\(B\) 的长度以及目标值 \(x\)。 第二行包含 \(n\) 个整数，表示">
+<meta property="og:description" content="题目描述 给定一个长度为 \(n\) 的整数序列 \(a_1,a_2,…,a_n\) 以及一个长度为 \(m\) 的整数序列 \(b_1,b_2,…,b_m\)。 请你判断 \(a\) 序列是否为 \(b\) 序列的子序列。 子序列指序列的一部分项按原有次序排列而得的序列，例如序列 \(\\{a_1,a_3,a5\\}\) 是序列 \(\\{a_1,a_2,a_3,a_4,a_5\\}\">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-06T10:15:00.000Z">
-<meta property="article:modified_time" content="2022-10-10T02:12:45.604Z">
+<meta property="article:published_time" content="2022-10-10T02:11:06.000Z">
+<meta property="article:modified_time" content="2022-10-10T02:20:43.404Z">
 <meta property="article:author" content="wpf">
 <meta property="article:tag" content="双指针">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>数组元素目标和 - Ymswdfg</title>
+  <title>判断子序列 - Ymswdfg</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -210,7 +210,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="数组元素目标和"></span>
+            <span id="subtitle" data-typed-text="判断子序列"></span>
           
         </div>
 
@@ -226,8 +226,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-06 18:15" pubdate>
-          2022年10月6日 晚上
+        <time datetime="2022-10-10 10:11" pubdate>
+          2022年10月10日 上午
         </time>
       </span>
     
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          810 字
+          1.1k 字
         
       </span>
     
@@ -249,7 +249,7 @@
         
         
         
-          7 分钟
+          10 分钟
         
       </span>
     
@@ -295,50 +295,58 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">数组元素目标和</h1>
+            <h1 style="display: none">判断子序列</h1>
             
             
               <div class="markdown-body">
                 
-                <p>给定两个升序排序的有序数组 <span class="math inline">\(A\)</span> 和
-<span class="math inline">\(B\)</span>，以及一个目标值 <span
-class="math inline">\(x\)</span>。</p>
-<p>数组下标从 <span class="math inline">\(0\)</span> 开始。</p>
-<p>请你求出满足 <span class="math inline">\(A[i] + B[j] = x\)</span>
-的数对 <span class="math inline">\((i, j)\)</span>。</p>
-<p>数据保证有唯一解。</p>
+                <h3 id="题目描述">题目描述</h3>
+<p>给定一个长度为 <span class="math inline">\(n\)</span> 的整数序列
+<span class="math inline">\(a_1,a_2,…,a_n\)</span> 以及一个长度为 <span
+class="math inline">\(m\)</span> 的整数序列 <span
+class="math inline">\(b_1,b_2,…,b_m\)</span>。</p>
+<p>请你判断 <span class="math inline">\(a\)</span> 序列是否为 <span
+class="math inline">\(b\)</span> 序列的子序列。</p>
+<p>子序列指序列的一部分项按<strong>原有次序排列</strong>而得的序列，例如序列
+<span class="math inline">\(\\{a_1,a_3,a5\\}\)</span> 是序列 <span
+class="math inline">\(\\{a_1,a_2,a_3,a_4,a_5\\}\)</span>
+的一个子序列。</p>
 <h4 id="输入格式">输入格式</h4>
-<p>第一行包含三个整数 <span
-class="math inline">\(n,m,x\)</span>，分别表示 <span
-class="math inline">\(A\)</span> 的长度，<span
-class="math inline">\(B\)</span> 的长度以及目标值 <span
-class="math inline">\(x\)</span>。</p>
-<p>第二行包含 <span class="math inline">\(n\)</span> 个整数，表示数组
-<span class="math inline">\(A\)</span>。</p>
-<p>第三行包含 <span class="math inline">\(m\)</span> 个整数，表示数组
-<span class="math inline">\(B\)</span>。</p>
+<p>第一行包含两个整数 <span class="math inline">\(n,m\)</span>。</p>
+<p>第二行包含 <span class="math inline">\(n\)</span> 个整数，表示 <span
+class="math inline">\(a_1,a_2,…,a_n\)</span>。</p>
+<p>第三行包含 <span class="math inline">\(m\)</span> 个整数，表示 <span
+class="math inline">\(b_1,b_2,…,b_m\)</span>。</p>
 <h4 id="输出格式">输出格式</h4>
-<p>共一行，包含两个整数 <span class="math inline">\(i\)</span> 和 <span
-class="math inline">\(j\)</span>。</p>
+<p>如果 <span class="math inline">\(a\)</span> 序列是 <span
+class="math inline">\(b\)</span> 序列的子序列，输出一行
+<code>Yes</code>。</p>
+<p>否则，输出 <code>No</code>。</p>
 <h4 id="数据范围">数据范围</h4>
-<p>数组长度不超过 <span class="math inline">\(10^5\)</span>。<br />
-同一数组内元素各不相同。<br />
-<span class="math inline">\(1 \le 数组元素 \le 10^9\)</span></p>
+<p><span class="math inline">\(1 \le n \le m \le 10^5\)</span>,<br />
+<span class="math inline">\(-10^9 \le a_i,b_i \le 10^9\)</span></p>
 <h4 id="输入样例">输入样例：</h4>
-<pre><code class="hljs">4 5 6
-1 2 4 7
-3 4 6 8 9</code></pre>
+<pre><code class="hljs">3 5
+1 3 5
+1 2 3 4 5</code></pre>
 <h4 id="输出样例">输出样例：</h4>
-<pre><code class="hljs">1 1</code></pre>
-<h3 id="思路">思路：</h3>
-<figure>
-<img
-src="https://cdn.acwing.com/media/article/image/2020/12/06/2675_d09ec25337-1.png" srcset="/img/loading.gif" lazyload
-alt="思路" />
-<figcaption aria-hidden="true">思路</figcaption>
-</figure>
-<h3 id="java代码">java代码</h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-type">Scanner</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> in.nextInt();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">m</span> <span class="hljs-operator">=</span> in.nextInt();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> in.nextInt();<br>        <span class="hljs-type">int</span> []a= <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span> [n+<span class="hljs-number">1</span>];<br>        <span class="hljs-type">int</span> []b = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span> [m+<span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)<br>            a[i] = in.nextInt();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; m; i++)<br>            b[i] = in.nextInt();<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, j = m - <span class="hljs-number">1</span>; i &lt; n; i++)&#123;<br>            <span class="hljs-keyword">while</span>(a[i] + b[j] &gt; x &amp;&amp; j &gt; <span class="hljs-number">0</span>)<br>                j--;<br>            <span class="hljs-keyword">if</span>(a[i] + b[j] == x)&#123;<br>                System.out.println(i + <span class="hljs-string">&quot; &quot;</span> + j);<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<pre><code class="hljs">Yes</code></pre>
+<hr />
+<h3 id="算法">算法</h3>
+<h4 id="双指针-onm">(双指针) <span
+class="math inline">\(O(n+m)\)</span></h4>
+<ol type="1">
+<li><p>j指针用来扫描整个b数组，i指针用来扫描a数组。若发现a[i] ==
+b[j]，则让i指针后移一位。</p></li>
+<li><p>整个过程中，j指针不断后移，而i指针只有当匹配成功时才后移一位，若最后若i
+== n，则说明匹配成功。</p></li>
+</ol>
+<p>整个过程中j指针不断扫描b数组并且向后移动，相当于不断给i指针所指向的a数组创建匹配的机会，只有匹配成功时i指针才会向后移动一位，当i
+== n时，说明全部匹配成功。</p>
+<p><img
+src="https://img-blog.csdnimg.cn/2021040121250352.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTYyOTI4NQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="java-代码">Java 代码</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java">my code...<span class="hljs-keyword">import</span> java.util.*;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-type">Scanner</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> in.nextInt();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">m</span> <span class="hljs-operator">=</span> in.nextInt();<br>        <span class="hljs-type">int</span> []a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span> [n+<span class="hljs-number">1</span>];<br>        <span class="hljs-type">int</span> []b = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span> [m+<span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)<br>            a[i] = in.nextInt();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; m; j++)<br>            b[j] = in.nextInt();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; m; j++)&#123;<br>            <span class="hljs-keyword">if</span>(i &lt; n &amp;&amp; a[i] == b[j])<br>                i++;<br>        &#125;<br>        <span class="hljs-keyword">if</span>( i == n)<br>            System.out.println(<span class="hljs-string">&quot;Yes&quot;</span>);<br>        <span class="hljs-keyword">else</span> <br>            System.out.println(<span class="hljs-string">&quot;No&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -384,8 +392,8 @@ alt="思路" />
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>数组元素目标和</div>
-      <div>https://wupf-code.github.io/2022/10/06/数组元素目标和/</div>
+      <div>判断子序列</div>
+      <div>https://wupf-code.github.io/2022/10/10/判断子序列/</div>
     </div>
     <div class="license-meta">
       
@@ -397,7 +405,7 @@ alt="思路" />
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月6日</div>
+          <div>2022年10月10日</div>
         </div>
       
       
@@ -429,18 +437,12 @@ alt="思路" />
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/10/%E5%88%A4%E6%96%AD%E5%AD%90%E5%BA%8F%E5%88%97/" title="判断子序列">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">判断子序列</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/06/%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E4%B8%8D%E9%87%8D%E5%A4%8D%E5%AD%90%E5%BA%8F%E5%88%97/" title="最长连续不重复子序列">
-                        <span class="hidden-mobile">最长连续不重复子序列</span>
+                      <a href="/2022/10/06/%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9B%AE%E6%A0%87%E5%92%8C/" title="数组元素目标和">
+                        <span class="hidden-mobile">数组元素目标和</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
