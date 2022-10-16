@@ -24,7 +24,7 @@
 <meta property="og:description" content="一、什么是进程、线程、协程，他们之间的关系是怎样的 进程: 本质上是一个独立执行的程序，进程是操作系统进行资源分配和调度的基本概念，操作系统进行资源分配和调度的一个独立单位 线程:是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。一个进程中可以并发多个线程，每条线程执行不同的任务，切换受系统控制。 协程: 又称为微线程，是一种用户态的轻量级线程，协程不像线">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-03T02:33:44.000Z">
-<meta property="article:modified_time" content="2022-10-05T14:09:31.605Z">
+<meta property="article:modified_time" content="2022-10-16T03:30:39.078Z">
 <meta property="article:author" content="wpf">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary_large_image">
@@ -355,10 +355,11 @@ id="三java多线程的实现方式和区别">三、Java多线程的实现方式
 <ul>
 <li><p>通过Callable和FutureTask方式</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">创建callable接口的实现类，并实现call方法，结合FutureTask类包装Callable对象，实现多线程<br>优点：有返回值，拓展性也高<br>缺点：jdk5以后才支持，需要重写call方法，结合多个类比如FutureTask和Thread类<br></code></pre></td></tr></table></figure>
-<p>public class MyTask implements Callable<Object> { <span
-class="citation" data-cites="Override">@Override</span> public Object
-call() throws Exception {</p>
-<pre><code class="hljs">    System.out.println(&quot;通过Callable实现多线程，名称：&quot;+Thread.currentThread().getName());
+<p>public class MyTask implements Callable<Object> {</p>
+<pre><code class="hljs">@Override
+public Object call() throws Exception &#123;
+
+    System.out.println(&quot;通过Callable实现多线程，名称：&quot;+Thread.currentThread().getName());
 
     return &quot;这是返回值&quot;;
 &#125;</code></pre>
@@ -388,7 +389,6 @@ new FutureTask&lt;&gt;(myTask);</p>
         //执行过程发送异常被抛出
         e.printStackTrace();
     &#125;
-
 
 &#125;</code></pre></li>
 </ul>

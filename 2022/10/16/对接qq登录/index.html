@@ -1,0 +1,768 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://s1.ax1x.com/2022/07/13/jR3ygs.png">
+  <link rel="icon" href="https://s1.ax1x.com/2022/07/13/jR3ygs.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="wpf">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. 前往qq互联进行开发者账号审核 QQ互联官网首页 选择个人接入后填入个人信息 注：手持照片得用后置摄像头拍摄，前置摄像头有镜像功能，手指不能遮挡证件信息，一定要拍清楚，否则会被驳回！  点击应用管理    屏幕截图 2022-10-16 105003.png   点击创建应用，创建网站应用   屏幕截图 2022-10-16 105241.png  填">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对接qq登录">
+<meta property="og:url" content="https://blog.ymswdfg.top/2022/10/16/%E5%AF%B9%E6%8E%A5qq%E7%99%BB%E5%BD%95/index.html">
+<meta property="og:site_name" content="Ymswdfg">
+<meta property="og:description" content="1. 前往qq互联进行开发者账号审核 QQ互联官网首页 选择个人接入后填入个人信息 注：手持照片得用后置摄像头拍摄，前置摄像头有镜像功能，手指不能遮挡证件信息，一定要拍清楚，否则会被驳回！  点击应用管理    屏幕截图 2022-10-16 105003.png   点击创建应用，创建网站应用   屏幕截图 2022-10-16 105241.png  填">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-16T02:42:43.000Z">
+<meta property="article:modified_time" content="2022-10-16T03:35:57.319Z">
+<meta property="article:author" content="wpf">
+<meta property="article:tag" content="第三方登录">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>对接qq登录 - Ymswdfg</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.ymswdfg.top","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ymswdfg</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="对接qq登录"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        wpf
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-16 10:42" pubdate>
+          2022年10月16日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          83 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">对接qq登录</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="前往qq互联进行开发者账号审核">1.
+前往qq互联进行开发者账号审核</h3>
+<p><a target="_blank" rel="noopener" href="https://connect.qq.com/">QQ互联官网首页</a></p>
+<p>选择个人接入后填入个人信息</p>
+<p>注：手持照片得用后置摄像头拍摄，前置摄像头有镜像功能，手指不能遮挡证件信息，一定要拍清楚，否则会被驳回！</p>
+<ol type="1">
+<li>点击应用管理</li>
+</ol>
+<figure>
+<img
+src="https://cdn.acwing.com/media/article/image/2022/10/16/72081_45d28aee4c-屏幕截图-2022-10-16-105003.png" srcset="/img/loading.gif" lazyload
+alt="屏幕截图 2022-10-16 105003.png" />
+<figcaption aria-hidden="true">屏幕截图 2022-10-16
+105003.png</figcaption>
+</figure>
+<ol start="2" type="1">
+<li><p>点击创建应用，创建网站应用</p>
+<figure>
+<img
+src="https://cdn.acwing.com/media/article/image/2022/10/16/72081_9ce593304c-屏幕截图-2022-10-16-105241.png" srcset="/img/loading.gif" lazyload
+alt="屏幕截图 2022-10-16 105241.png" />
+<figcaption aria-hidden="true">屏幕截图 2022-10-16
+105241.png</figcaption>
+</figure></li>
+<li><p>填写资料，网站一栏填写要对接qq登录的网站网址</p>
+<figure>
+<img
+src="https://cdn.acwing.com/media/article/image/2022/10/16/72081_e758f69f4c-屏幕截图-2022-10-16-105445.png" srcset="/img/loading.gif" lazyload
+alt="屏幕截图 2022-10-16 105445.png" />
+<figcaption aria-hidden="true">屏幕截图 2022-10-16
+105445.png</figcaption>
+</figure></li>
+</ol>
+<p>       <img
+src="https://cdn.acwing.com/media/article/image/2022/10/16/72081_491ec08e4c-屏幕截图-2022-10-16-105552.png" srcset="/img/loading.gif" lazyload
+alt="屏幕截图 2022-10-16 105552.png" /></p>
+<p>回调地址填写前端地址，如我的前端有个页面，地址是https://www.example.com/user/account/qq/receive_code</p>
+<p>此地址用来处理qq返回的请求路径，此处就填写这个。</p>
+<p>应用创建成功后，编写代码</p>
+<h3 id="前端代码">2. 前端代码</h3>
+<ol type="1">
+<li><p>写一个上文提到的回调地址页面</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;template&gt;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&lt;/template&gt;<br><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml"><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@/router/index&quot;</span>;</span></span><br><span class="language-javascript"><span class="language-xml"><span class="hljs-keyword">import</span> &#123;useStore&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vuex&quot;</span>;</span></span><br><span class="language-javascript"><span class="language-xml"><span class="hljs-keyword">import</span> &#123;useRoute&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vue-router&quot;</span>;</span></span><br><span class="language-javascript"><span class="language-xml"><span class="hljs-keyword">import</span> $ <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;jquery&#x27;</span></span></span><br><span class="language-javascript"><span class="language-xml"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;UserAccountQQReceiveCodeView&quot;</span>,</span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-title function_">setup</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-keyword">const</span> myRoute = <span class="hljs-title function_">useRoute</span>();</span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-keyword">const</span> store = <span class="hljs-title function_">useStore</span>();</span></span><br><span class="language-javascript"><span class="language-xml">    $.<span class="hljs-title function_">ajax</span>(&#123;</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-attr">url</span>: <span class="hljs-string">&quot;https://www.example/api/user/account/qq/receive_code&quot;</span>,</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;GET&quot;</span>,</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-attr">data</span>: &#123;</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-attr">code</span>: myRoute.<span class="hljs-property">query</span>.<span class="hljs-property">code</span>,</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-attr">state</span>: myRoute.<span class="hljs-property">query</span>.<span class="hljs-property">state</span>,</span></span><br><span class="language-javascript"><span class="language-xml">      &#125;,</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-params">resp</span> =&gt;</span> &#123;</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-keyword">if</span> (resp.<span class="hljs-property">result</span> === <span class="hljs-string">&quot;success&quot;</span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">          <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">&quot;jwt_token&quot;</span>, resp.<span class="hljs-property">jwt_token</span>);</span></span><br><span class="language-javascript"><span class="language-xml">          store.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&quot;updateToken&quot;</span>, resp.<span class="hljs-property">jwt_token</span>);</span></span><br><span class="language-javascript"><span class="language-xml">          router.<span class="hljs-title function_">push</span>(&#123;<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;home&quot;</span>&#125;);</span></span><br><span class="language-javascript"><span class="language-xml">          store.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&quot;updatePullingInfo&quot;</span>, <span class="hljs-literal">false</span>);</span></span><br><span class="language-javascript"><span class="language-xml">        &#125; <span class="hljs-keyword">else</span> &#123;</span></span><br><span class="language-javascript"><span class="language-xml">          router.<span class="hljs-title function_">push</span>(&#123;<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;user_account_login&quot;</span>&#125;);</span></span><br><span class="language-javascript"><span class="language-xml">        &#125;</span></span><br><span class="language-javascript"><span class="language-xml">      &#125;</span></span><br><span class="language-javascript"><span class="language-xml">    &#125;)</span></span><br><span class="language-javascript"><span class="language-xml">  &#125;</span></span><br><span class="language-javascript"><span class="language-xml">&#125;</span></span><br><span class="language-javascript"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">scoped</span>&gt;</span></span><br><span class="language-xml"></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br></code></pre></td></tr></table></figure></li>
+<li><p>登录页必须有qq的icon，负责，审核不给通过,在登录页添加代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;div @click=<span class="hljs-string">&quot;qq_login&quot;</span>&gt;<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;30&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;cursor: pointer;&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;图床链接&quot;</span></span></span><br><span class="hljs-tag"><span class="language-xml">    /&gt;</span></span><br>&lt;/div&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">qq_login</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  $.<span class="hljs-title function_">ajax</span>(&#123;<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">&quot;https://www.zimei.fun/api/user/account/qq/apply_code/&quot;</span>,<br>    <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;GET&quot;</span>,<br>    <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-params">resp</span> =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (resp.<span class="hljs-property">result</span> === <span class="hljs-string">&quot;success&quot;</span>) &#123;<br>        <span class="hljs-variable language_">window</span>.<span class="hljs-property">location</span>.<span class="hljs-title function_">replace</span>(resp.<span class="hljs-property">apply_code_url</span>);<br>      &#125;<br>    &#125;<br>  &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>修改路由</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">&#123;<br>    <span class="hljs-attr">path</span>: <span class="hljs-string">&quot;/user/account/qq/receive_code&quot;</span>,<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;user_account_qq_receive_code&quot;</span>,<br>    <span class="hljs-attr">component</span>: <span class="hljs-function">()=&gt;</span><span class="hljs-title function_">import</span>(<span class="hljs-string">&#x27;@/views/user/account/UserAccountQQReceiveCodeView&#x27;</span>),<br>    <span class="hljs-attr">meta</span>:&#123;<br>    requestAuth : <span class="hljs-literal">false</span><br>    &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+<h3 id="实现后端代码">3. 实现后端代码</h3>
+<ol type="1">
+<li><p>service接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.alibaba.fastjson.JSONObject;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">QQWebService</span> &#123;<br>    JSONObject <span class="hljs-title function_">applyCode</span><span class="hljs-params">()</span>;<br>    JSONObject <span class="hljs-title function_">receiveCode</span><span class="hljs-params">(String code,String state)</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>service实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.alibaba.fastjson.JSONObject;<br><span class="hljs-keyword">import</span> com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;<br><span class="hljs-keyword">import</span> com.lxs.backend.mapper.UserMapper;<br><span class="hljs-keyword">import</span> com.lxs.backend.pojo.User;<br><span class="hljs-keyword">import</span> com.lxs.backend.service.impl.user.account.acwing.utils.HttpClientUtil;<br><span class="hljs-keyword">import</span> com.lxs.backend.service.user.account.qq.QQWebService;<br><span class="hljs-keyword">import</span> com.lxs.backend.utils.JwtUtil;<br><span class="hljs-keyword">import</span> org.apache.http.NameValuePair;<br><span class="hljs-keyword">import</span> org.apache.http.message.BasicNameValuePair;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;<br><span class="hljs-keyword">import</span> org.springframework.data.redis.core.RedisTemplate;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Service;<br><br><span class="hljs-keyword">import</span> java.io.UnsupportedEncodingException;<br><span class="hljs-keyword">import</span> java.net.URLEncoder;<br><span class="hljs-keyword">import</span> java.time.Duration;<br><span class="hljs-keyword">import</span> java.util.LinkedList;<br><span class="hljs-keyword">import</span> java.util.List;<br><span class="hljs-keyword">import</span> java.util.Random;<br><br><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">QQWebServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">QQWebService</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">appId</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;你的ID&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">appSecret</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;你的密匙&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">redirectUri</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;https://www.zimei.fun/user/account/qq/receive_code&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">applyAccessTokenUrl</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;https://graph.qq.com/oauth2.0/token&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">getUserInfoUrl</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;https://graph.qq.om/user/get_user_info&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String getUserOpenIDUrl=<span class="hljs-string">&quot;https://graph.qq.com/oauth2.0/me&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-type">Random</span> <span class="hljs-variable">random</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Random</span>();<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> UserMapper userMapper;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RedisTemplate&lt;String, String&gt; redisTemplate;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> JSONObject <span class="hljs-title function_">applyCode</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">JSONObject</span> <span class="hljs-variable">resp</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JSONObject</span>();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">encodeUrl</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            encodeUrl = URLEncoder.encode(redirectUri, <span class="hljs-string">&quot;UTF-8&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (UnsupportedEncodingException e) &#123;<br>            e.printStackTrace();<br>            resp.put(<span class="hljs-string">&quot;result&quot;</span>, <span class="hljs-string">&quot;failed&quot;</span>);<br>            <span class="hljs-keyword">return</span> resp;<br>        &#125;<br><br>        <span class="hljs-comment">//随机字符串，防止csrf攻击</span><br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">state</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>            state.append((<span class="hljs-type">char</span>) (random.nextInt(<span class="hljs-number">10</span>) + <span class="hljs-string">&#x27;0&#x27;</span>));<br>        &#125;<br>        <span class="hljs-comment">//存到redis里，有效期设置为10分钟</span><br>        resp.put(<span class="hljs-string">&quot;result&quot;</span>, <span class="hljs-string">&quot;success&quot;</span>);<br>        redisTemplate.opsForValue().set(state.toString(), <span class="hljs-string">&quot;true&quot;</span>);<br>        redisTemplate.expire(state.toString(), Duration.ofMinutes(<span class="hljs-number">10</span>));<br><br>        <span class="hljs-type">String</span> <span class="hljs-variable">applyCodeUrl</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;https://graph.qq.com/oauth2.0/authorize&quot;</span><br>                + <span class="hljs-string">&quot;?response_type=&quot;</span>+<span class="hljs-string">&quot;code&quot;</span><br>                + <span class="hljs-string">&quot;&amp;client_id=&quot;</span> + appId<br>                + <span class="hljs-string">&quot;&amp;redirect_uri=&quot;</span> + encodeUrl<br>                + <span class="hljs-string">&quot;&amp;state=&quot;</span> + state<br>                ;<br>        resp.put(<span class="hljs-string">&quot;apply_code_url&quot;</span>, applyCodeUrl);<br><br>        <span class="hljs-keyword">return</span> resp;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> JSONObject <span class="hljs-title function_">receiveCode</span><span class="hljs-params">(String code, String state)</span> &#123;<br>        <span class="hljs-type">JSONObject</span> <span class="hljs-variable">resp</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JSONObject</span>();<br>        resp.put(<span class="hljs-string">&quot;result&quot;</span>, <span class="hljs-string">&quot;failed&quot;</span>);<br>        <span class="hljs-keyword">if</span> (code == <span class="hljs-literal">null</span> || state == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> resp;<br>        <span class="hljs-keyword">if</span> (Boolean.FALSE.equals(redisTemplate.hasKey(state))) <span class="hljs-keyword">return</span> resp;<br>        redisTemplate.delete(state);<br><span class="hljs-comment">//        获取access_token</span><br>        List&lt;NameValuePair&gt; nameValuePairs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br>        nameValuePairs.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BasicNameValuePair</span>(<span class="hljs-string">&quot;grant_type&quot;</span>, <span class="hljs-string">&quot;authorization_code&quot;</span>));<br>        nameValuePairs.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BasicNameValuePair</span>(<span class="hljs-string">&quot;client_id&quot;</span>, appId));<br>        nameValuePairs.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BasicNameValuePair</span>(<span class="hljs-string">&quot;client_secret&quot;</span>, appSecret));<br>        nameValuePairs.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BasicNameValuePair</span>(<span class="hljs-string">&quot;code&quot;</span>, code));<br>        nameValuePairs.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BasicNameValuePair</span>(<span class="hljs-string">&quot;redirect_uri&quot;</span>, redirectUri));<br>        nameValuePairs.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BasicNameValuePair</span>(<span class="hljs-string">&quot;fmt&quot;</span>, <span class="hljs-string">&quot;json&quot;</span>));<br><br>        <span class="hljs-type">String</span> <span class="hljs-variable">getString</span> <span class="hljs-operator">=</span> HttpClientUtil.get(applyAccessTokenUrl, nameValuePairs);<br>        <span class="hljs-keyword">if</span> (getString == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> resp;<br>        <span class="hljs-type">JSONObject</span> <span class="hljs-variable">getResp</span> <span class="hljs-operator">=</span> JSONObject.parseObject(getString);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">accessToken</span> <span class="hljs-operator">=</span> getResp.getString(<span class="hljs-string">&quot;access_token&quot;</span>);<br><br><span class="hljs-comment">//        获取open_id</span><br>        nameValuePairs=<span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br>        nameValuePairs.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BasicNameValuePair</span>(<span class="hljs-string">&quot;access_token&quot;</span>,accessToken));<br>        nameValuePairs.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BasicNameValuePair</span>(<span class="hljs-string">&quot;fmt&quot;</span>, <span class="hljs-string">&quot;json&quot;</span>));<br><br>        getString=HttpClientUtil.get(getUserOpenIDUrl,nameValuePairs);<br>        <span class="hljs-keyword">if</span>(getString==<span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> resp;<br>        getResp = JSONObject.parseObject(getString);<br>        String openId=getResp.getString(<span class="hljs-string">&quot;openid&quot;</span>);<br><br>        <span class="hljs-keyword">if</span> (accessToken == <span class="hljs-literal">null</span> || openId == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> resp;<br><br>        QueryWrapper&lt;User&gt; queryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">QueryWrapper</span>&lt;&gt;();<br>        queryWrapper.eq(<span class="hljs-string">&quot;openid_qq&quot;</span>, openId);<br>        List&lt;User&gt; users = userMapper.selectList(queryWrapper);<br><br><span class="hljs-comment">//        用户已经授权，自动登录</span><br>        <span class="hljs-keyword">if</span> (!users.isEmpty()) &#123;<br>            <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> users.get(<span class="hljs-number">0</span>);<br>            <span class="hljs-comment">//生成JWT</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">jwt</span> <span class="hljs-operator">=</span> JwtUtil.createJWT(user.getId().toString());<br><br>            resp.put(<span class="hljs-string">&quot;result&quot;</span>, <span class="hljs-string">&quot;success&quot;</span>);<br>            resp.put(<span class="hljs-string">&quot;jwt_token&quot;</span>, jwt);<br>            <span class="hljs-keyword">return</span> resp;<br>        &#125;<br><br><span class="hljs-comment">//        新用户授权，获取用户信息</span><br>        nameValuePairs = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br>        nameValuePairs.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BasicNameValuePair</span>(<span class="hljs-string">&quot;access_token&quot;</span>, accessToken));<br>        nameValuePairs.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BasicNameValuePair</span>(<span class="hljs-string">&quot;openid&quot;</span>, openId));<br>        nameValuePairs.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BasicNameValuePair</span>(<span class="hljs-string">&quot;oauth_consumer_key&quot;</span>, appId));<br>        getString = HttpClientUtil.get(getUserInfoUrl, nameValuePairs);<br>        <span class="hljs-keyword">if</span> (getString == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> resp;<br><br>        getResp = JSONObject.parseObject(getString);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">username</span> <span class="hljs-operator">=</span> getResp.getString(<span class="hljs-string">&quot;nickname&quot;</span>);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">photo</span> <span class="hljs-operator">=</span> getResp.getString(<span class="hljs-string">&quot;figureurl_1&quot;</span>);<span class="hljs-comment">//50*50的头像</span><br><br>        <span class="hljs-keyword">if</span> (username == <span class="hljs-literal">null</span> || photo == <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> resp;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++) &#123;<br>            QueryWrapper&lt;User&gt; usernameQueryWrapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">QueryWrapper</span>&lt;&gt;();<br>            usernameQueryWrapper.eq(<span class="hljs-string">&quot;username&quot;</span>, username);<br>            <span class="hljs-keyword">if</span> (userMapper.selectList(usernameQueryWrapper).isEmpty()) <span class="hljs-keyword">break</span>;<br>            username += (<span class="hljs-type">char</span>) (random.nextInt(<span class="hljs-number">10</span>) + <span class="hljs-string">&#x27;0&#x27;</span>);<br>            <span class="hljs-keyword">if</span> (i == <span class="hljs-number">99</span>) <span class="hljs-keyword">return</span> resp;<br>        &#125;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<br>                <span class="hljs-literal">null</span>,<br>                username,<br>                <span class="hljs-literal">null</span>,<br>                photo,<br>                <span class="hljs-number">1500</span>,<br>                <span class="hljs-literal">null</span>,<br>                openId<br>        );<br>        userMapper.insert(user);<br>        <span class="hljs-comment">//生成JWT</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">jwt</span> <span class="hljs-operator">=</span> JwtUtil.createJWT(user.getId().toString());<br>        resp.put(<span class="hljs-string">&quot;result&quot;</span>, <span class="hljs-string">&quot;success&quot;</span>);<br>        resp.put(<span class="hljs-string">&quot;jwt_token&quot;</span>, jwt);<br>        <span class="hljs-keyword">return</span> resp;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>controller</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">QQWebController</span> &#123;<br> <span class="hljs-meta">@Autowired</span><br> <span class="hljs-keyword">private</span> QQWebService qqWebService; <br><span class="hljs-meta">@GeMapping(&quot;/api/user/account/qq/apply_code/&quot;)</span><br> JSONObject <span class="hljs-title function_">applyCode</span><span class="hljs-params">()</span>&#123;<br> <span class="hljs-keyword">return</span> qqWebService.applyCode();<br> &#125; <br><span class="hljs-meta">@GetMapping(&quot;/api/user/account/qq/receive_code&quot;)</span><br> <span class="hljs-keyword">public</span> JSONObject <span class="hljs-title function_">receiveCode</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> Map&lt;String,String&gt; data)</span>&#123;<br> String code=data.get(<span class="hljs-string">&quot;code&quot;</span>);<br> String state=data.get(<span class="hljs-string">&quot;state&quot;</span>);<br> <span class="hljs-keyword">return</span> qqWebService.receiveCode(code,state);<br> &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>放行后端路由</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">.antMatchers(<br>                      <span class="hljs-string">&quot;/api/user/account/token/&quot;</span>,<br>                       <span class="hljs-string">&quot;/api/user/account/register/&quot;</span>,<br>                       <span class="hljs-string">&quot;/api/user/account/qq/apply_code/&quot;</span>,<br>                       <span class="hljs-string">&quot;/api/user/account/qq/receive_code&quot;</span><br>               ).permitAll()<br></code></pre></td></tr></table></figure></li>
+<li><p>工具类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.apache.http.HttpEntity;<br><span class="hljs-keyword">import</span> org.apache.http.NameValuePair;<br><span class="hljs-keyword">import</span> org.apache.http.client.methods.CloseableHttpResponse;<br><span class="hljs-keyword">import</span> org.apache.http.client.methods.HttpGet;<br><span class="hljs-keyword">import</span> org.apache.http.client.utils.URIBuilder;<br><span class="hljs-keyword">import</span> org.apache.http.impl.client.CloseableHttpClient;<br><span class="hljs-keyword">import</span> org.apache.http.impl.client.HttpClients;<br><span class="hljs-keyword">import</span> org.apache.http.util.EntityUtils;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.net.URISyntaxException;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HttpClientUtil</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">get</span><span class="hljs-params">(String url, List&lt;NameValuePair&gt; params)</span> &#123;<br>        <span class="hljs-type">URIBuilder</span> <span class="hljs-variable">uriBuilder</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            uriBuilder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">URIBuilder</span>(url);<br>        &#125; <span class="hljs-keyword">catch</span> (URISyntaxException e) &#123;<br>            e.printStackTrace();<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br>        uriBuilder.setParameters(params);<br><br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">CloseableHttpClient</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> HttpClients.createDefault()) &#123;<br>            <span class="hljs-type">HttpGet</span> <span class="hljs-variable">httpGet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpGet</span>(uriBuilder.build());<br>            <span class="hljs-type">CloseableHttpResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> client.execute(httpGet);<br>            <span class="hljs-type">HttpEntity</span> <span class="hljs-variable">entity</span> <span class="hljs-operator">=</span> response.getEntity();<br>            <span class="hljs-keyword">return</span> EntityUtils.toString(entity);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException | URISyntaxException e) &#123;<br>            e.printStackTrace();<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><br><br></code></pre></td></tr></table></figure></li>
+<li><p>pom依赖</p></li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.httpcomponents<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>httpclient<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>4.5.13<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/" class="category-chain-item">未分类</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/">#第三方登录</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>对接qq登录</div>
+      <div>https://blog.ymswdfg.top/2022/10/16/对接qq登录/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>wpf</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/15/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" title="滑动窗口">
+                        <span class="hidden-mobile">滑动窗口</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"833RHtr6HjnGV9auCwii9ocH-gzGzoHsz","appKey":"8tfXQaRd8Z8XolPFrewt33eP","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":true,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":true},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       welcome to you <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      苏ICP备2022030002号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
