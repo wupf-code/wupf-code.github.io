@@ -16,24 +16,26 @@
   <meta name="author" content="wpf">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述 给定一个大小为 \(n \le 10^6\) 的数组。 有一个大小为 \(k\) 的滑动窗口，它从数组的最左边移动到最右边。 你只能在窗口中看到 \(k\) 个数字。 每次滑动窗口向右移动一个位置。 以下是一个例子： 该数组为 [1 3 -1 -3 5 3 6 7]，\(k\) 为 \(3\)。    窗口位置 最小值 最大值     [1 3 -">
+    <meta name="description" content="题目描述 \(n-\)皇后问题是指将 \(n\) 个皇后放在 \(n \times n\) 的国际象棋棋盘上，使得皇后不能相互攻击到，即任意两个皇后都不能处于同一行、同一列或同一斜线上。   1_597ec77c49-8-queens.png  现在给定整数 \(n\)，请你输出所有的满足条件的棋子摆法。 输入格式 共一行，包含整数 \(n\)。 输出格式 每个解决方案占 \">
 <meta property="og:type" content="article">
-<meta property="og:title" content="滑动窗口">
-<meta property="og:url" content="https://blog.ymswdfg.top/2022/10/15/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/index.html">
+<meta property="og:title" content="n皇后">
+<meta property="og:url" content="https://blog.ymswdfg.top/2022/10/20/n%E7%9A%87%E5%90%8E/index.html">
 <meta property="og:site_name" content="Ymswdfg">
-<meta property="og:description" content="题目描述 给定一个大小为 \(n \le 10^6\) 的数组。 有一个大小为 \(k\) 的滑动窗口，它从数组的最左边移动到最右边。 你只能在窗口中看到 \(k\) 个数字。 每次滑动窗口向右移动一个位置。 以下是一个例子： 该数组为 [1 3 -1 -3 5 3 6 7]，\(k\) 为 \(3\)。    窗口位置 最小值 最大值     [1 3 -">
+<meta property="og:description" content="题目描述 \(n-\)皇后问题是指将 \(n\) 个皇后放在 \(n \times n\) 的国际象棋棋盘上，使得皇后不能相互攻击到，即任意两个皇后都不能处于同一行、同一列或同一斜线上。   1_597ec77c49-8-queens.png  现在给定整数 \(n\)，请你输出所有的满足条件的棋子摆法。 输入格式 共一行，包含整数 \(n\)。 输出格式 每个解决方案占 \">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-15T01:46:44.000Z">
-<meta property="article:modified_time" content="2022-10-20T14:49:52.344Z">
+<meta property="og:image" content="https://s1.ax1x.com/2022/10/20/x61vut.jpg">
+<meta property="article:published_time" content="2022-10-20T14:45:49.000Z">
+<meta property="article:modified_time" content="2022-10-20T14:53:15.107Z">
 <meta property="article:author" content="wpf">
-<meta property="article:tag" content="滑动窗口">
+<meta property="article:tag" content="dfs">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s1.ax1x.com/2022/10/20/x61vut.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>滑动窗口 - Ymswdfg</title>
+  <title>n皇后 - Ymswdfg</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -210,7 +212,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="滑动窗口"></span>
+            <span id="subtitle" data-typed-text="n皇后"></span>
           
         </div>
 
@@ -226,8 +228,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-15 09:46" pubdate>
-          2022年10月15日 上午
+        <time datetime="2022-10-20 22:45" pubdate>
+          2022年10月20日 晚上
         </time>
       </span>
     
@@ -238,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          1.9k 字
         
       </span>
     
@@ -249,7 +251,7 @@
         
         
         
-          21 分钟
+          16 分钟
         
       </span>
     
@@ -295,116 +297,57 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">滑动窗口</h1>
+            <h1 style="display: none">n皇后</h1>
             
             
               <div class="markdown-body">
                 
                 <h3 id="题目描述">题目描述</h3>
-<p>给定一个大小为 <span class="math inline">\(n \le 10^6\)</span>
-的数组。</p>
-<p>有一个大小为 <span class="math inline">\(k\)</span>
-的滑动窗口，它从数组的最左边移动到最右边。</p>
-<p>你只能在窗口中看到 <span class="math inline">\(k\)</span>
-个数字。</p>
-<p>每次滑动窗口向右移动一个位置。</p>
-<p>以下是一个例子：</p>
-<p>该数组为 <code>[1 3 -1 -3 5 3 6 7]</code>，<span
-class="math inline">\(k\)</span> 为 <span
-class="math inline">\(3\)</span>。</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">窗口位置</th>
-<th style="text-align: center;">最小值</th>
-<th style="text-align: center;">最大值</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">[1 3 -1] -3 5 3 6 7</td>
-<td style="text-align: center;">-1</td>
-<td style="text-align: center;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">1 [3 -1 -3] 5 3 6 7</td>
-<td style="text-align: center;">-3</td>
-<td style="text-align: center;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">1 3 [-1 -3 5] 3 6 7</td>
-<td style="text-align: center;">-3</td>
-<td style="text-align: center;">5</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">1 3 -1 [-3 5 3] 6 7</td>
-<td style="text-align: center;">-3</td>
-<td style="text-align: center;">5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">1 3 -1 -3 [5 3 6] 7</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">6</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">1 3 -1 -3 5 [3 6 7]</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">7</td>
-</tr>
-</tbody>
-</table>
-<p>你的任务是确定滑动窗口位于每个位置时，窗口中的最大值和最小值。</p>
+<p><span class="math inline">\(n-\)</span>皇后问题是指将 <span
+class="math inline">\(n\)</span> 个皇后放在 <span
+class="math inline">\(n \times n\)</span>
+的国际象棋棋盘上，使得皇后不能相互攻击到，即任意两个皇后都不能处于同一行、同一列或同一斜线上。</p>
+<figure>
+<img
+src="https://cdn.acwing.com/media/article/image/2019/06/08/19_860e00c489-1_597ec77c49-8-queens.png" srcset="/img/loading.gif" lazyload
+alt="1_597ec77c49-8-queens.png" />
+<figcaption aria-hidden="true">1_597ec77c49-8-queens.png</figcaption>
+</figure>
+<p>现在给定整数 <span
+class="math inline">\(n\)</span>，请你输出所有的满足条件的棋子摆法。</p>
 <h4 id="输入格式">输入格式</h4>
-<p>输入包含两行。</p>
-<p>第一行包含两个整数 <span class="math inline">\(n\)</span> 和 <span
-class="math inline">\(k\)</span>，分别代表数组长度和滑动窗口的长度。</p>
-<p>第二行有 <span class="math inline">\(n\)</span>
-个整数，代表数组的具体数值。</p>
-<p>同行数据之间用空格隔开。</p>
+<p>共一行，包含整数 <span class="math inline">\(n\)</span>。</p>
 <h4 id="输出格式">输出格式</h4>
-<p>输出包含两个。</p>
-<p>第一行输出，从左至右，每个位置滑动窗口中的最小值。</p>
-<p>第二行输出，从左至右，每个位置滑动窗口中的最大值。</p>
+<p>每个解决方案占 <span class="math inline">\(n\)</span>
+行，每行输出一个长度为 <span class="math inline">\(n\)</span>
+的字符串，用来表示完整的棋盘状态。</p>
+<p>其中 <code>.</code> 表示某一个位置的方格状态为空，<code>Q</code>
+表示某一个位置的方格上摆着皇后。</p>
+<p>每个方案输出完成后，输出一个空行。</p>
+<p><strong>注意：行末不能有多余空格。</strong></p>
+<p>输出方案的顺序任意，只要不重复且没有遗漏即可。</p>
+<h4 id="数据范围">数据范围</h4>
+<p><span class="math inline">\(1 \le n \le 9\)</span></p>
 <h4 id="输入样例">输入样例：</h4>
-<pre><code class="hljs">8 3
-1 3 -1 -3 5 3 6 7</code></pre>
+<pre><code class="hljs">4</code></pre>
 <h4 id="输出样例">输出样例：</h4>
-<pre><code class="hljs">-1 -3 -3 -3 3 3
-3 3 5 5 6 7</code></pre>
+<pre><code class="hljs">.Q..
+...Q
+Q...
+..Q.
+
+..Q.
+Q...
+...Q
+.Q..</code></pre>
 <hr />
 <h3 id="算法">算法</h3>
-<h4 id="滑动窗口">(滑动窗口)</h4>
-<p>题目中提到了滑动窗口，我们先以示例为例看下什么是滑动窗口？在示例中，我们从数组中第一个元素开始遍历，由于窗口的大小是3，因此当遍历到第三个元素时，窗口就形成了。</p>
-<figure>
-<img
-src="https://cdn.acwing.com/media/article/image/2022/10/15/72081_bd3793834c-55289_d0038f6a9c-单调对累.png" srcset="/img/loading.gif" lazyload
-alt="55289_d0038f6a9c-单调对累.png" />
-<figcaption
-aria-hidden="true">55289_d0038f6a9c-单调对累.png</figcaption>
-</figure>
-<p>之后，继续遍历元素时，为了保持窗口的大小为3，左侧元素就需要从窗口中剔除。这样使得窗口一直在向右移动，直到考察到最后一个元素结束，这就是所谓的滑动窗口。</p>
-<figure>
-<img
-src="https://cdn.acwing.com/media/article/image/2022/10/15/72081_b8d05fbb4c-55289_0923cf569c-滑动窗口.PNG" srcset="/img/loading.gif" lazyload
-alt="55289_0923cf569c-滑动窗口.PNG" />
-<figcaption
-aria-hidden="true">55289_0923cf569c-滑动窗口.PNG</figcaption>
-</figure>
-<h4 id="解题思路以最大值为例">解题思路（以最大值为例）：</h4>
-<p>由于我们需要求出的是滑动窗口的最大值。</p>
-<p>如果当前的滑动窗口中有两个下标 i 和 j
-，其中i在j的左侧（i&lt;j），并且i对应的元素不大于j对应的元素（nums[i]≤nums[j]），则：</p>
-<p>当滑动窗口向右移动时，只要 i 还在窗口中，那么 j
-一定也还在窗口中。这是由于 i 在 j 的左侧所保证的。</p>
-<p>因此，由于 nums[j] 的存在，nums[i]
-一定不会是滑动窗口中的最大值了，我们可以将nums[i]永久地移除。</p>
-<p>因此我们可以使用一个队列存储所有还没有被移除的下标。在队列中，这些下标按照从小到大的顺序被存储，并且它们在数组nums中对应的值是严格单调递减的。</p>
-<p>当滑动窗口向右移动时，我们需要把一个新的元素放入队列中。</p>
-<p>为了保持队列的性质，我们会不断地将新的元素与队尾的元素相比较，如果新元素大于等于队尾元素，那么队尾的元素就可以被永久地移除，我们将其弹出队列。我们需要不断地进行此项操作，直到队列为空或者新的元素小于队尾的元素。</p>
-<p>由于队列中下标对应的元素是严格单调递减的，因此此时队首下标对应的元素就是滑动窗口中的最大值。</p>
-<p>窗口向右移动的时候。因此我们还需要不断从队首弹出元素保证队列中的所有元素都是窗口中的，因此当队头元素在窗口的左边的时候，弹出队头。</p>
+<h4 id="dfs">(dfs)</h4>
+<p><img src="https://s1.ax1x.com/2022/10/20/x61vut.jpg" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="c-代码">C++ 代码</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">10</span>;<br><span class="hljs-type">int</span> n;<br><span class="hljs-type">char</span> g[N][N];<br><span class="hljs-type">bool</span> col[N], dg[N], udg[N];<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-type">int</span> u)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span>(u &gt;= n)<br>    &#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)<br>        &#123;<br>            <span class="hljs-built_in">puts</span>(g[i]);<br>        &#125;<br>        <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;&quot;</span>);<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)<br>    &#123;<br>        <span class="hljs-keyword">if</span>(!col[i] &amp;&amp; !dg[u + i] &amp;&amp; !udg[n + u -i])<br>        &#123;<br>            g[u][i] = <span class="hljs-string">&#x27;Q&#x27;</span>;<br>            col[i] = dg[u+i] = udg[u-i+n] = <span class="hljs-literal">true</span>;<br>            <span class="hljs-built_in">dfs</span>(u+<span class="hljs-number">1</span>);<br>            g[u][i] = <span class="hljs-string">&#x27;.&#x27;</span>;<br>            col[i] = dg[u+i] = udg[u-i+n] = <span class="hljs-literal">false</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++)<br>            g[i][j] = <span class="hljs-string">&#x27;.&#x27;</span>;<br>    <span class="hljs-built_in">dfs</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h4 id="java代码">Java代码</h4>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        Deque&lt;Integer&gt; de = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayDeque</span>&lt;&gt;();<br><br>        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">br</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(System.in));<br>        <span class="hljs-type">BufferedWriter</span> <span class="hljs-variable">bw</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedWriter</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">OutputStreamWriter</span>(System.out));<br>        String[] str = br.readLine().split(<span class="hljs-string">&quot; &quot;</span>);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> Integer.parseInt(str[<span class="hljs-number">0</span>]);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> Integer.parseInt(str[<span class="hljs-number">1</span>]);<br>        String[] s = br.readLine().split(<span class="hljs-string">&quot; &quot;</span>);<br><br>        <span class="hljs-type">int</span> []a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n+<span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>            a[i] = Integer.parseInt(s[i - <span class="hljs-number">1</span>]);<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>            <span class="hljs-keyword">while</span>(de.size() &gt; <span class="hljs-number">0</span> &amp;&amp; de.peekLast() &gt; a[i]) &#123;<br>                de.pollLast();<br>            &#125;<br>            de.offerLast(a[i]);<br>            <span class="hljs-keyword">if</span>(i - k &gt;= <span class="hljs-number">1</span> &amp;&amp; de.peekFirst() == a[i-k])&#123;<br>                de.pollFirst();<br>            &#125;<br>            <span class="hljs-keyword">if</span>(i &gt;= k)&#123;<br>                bw.write(de.peekFirst() + <span class="hljs-string">&quot; &quot;</span>);<br>            &#125;<br>        &#125;<br>        bw.write(<span class="hljs-string">&quot;\n&quot;</span>);<br>        de.clear();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>            <span class="hljs-keyword">while</span>(de.size() &gt; <span class="hljs-number">0</span> &amp;&amp; de.peekLast() &lt; a[i]) &#123;<br>                de.pollLast();<br>            &#125;<br>            de.offerLast(a[i]);<br>            <span class="hljs-keyword">if</span>(i - k &gt;= <span class="hljs-number">1</span> &amp;&amp; de.peekFirst() == a[i-k])&#123;<br>                de.pollFirst();<br>            &#125;<br>            <span class="hljs-keyword">if</span>(i &gt;= k)&#123;<br>                bw.write(de.peekFirst() + <span class="hljs-string">&quot; &quot;</span>);<br>            &#125;<br>        &#125;<br>        bw.flush();<br>        br.close();<br>        bw.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-keyword">import</span> java.util.*;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">N</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>;<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">char</span> [][]g = <span class="hljs-keyword">new</span> <span class="hljs-title class_">char</span>[N][N];<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> []col = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[<span class="hljs-number">2</span>*N];<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> []dg = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[<span class="hljs-number">2</span>*N];<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> []udg = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[<span class="hljs-number">2</span>*N];<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> n;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">dfs</span><span class="hljs-params">(<span class="hljs-type">int</span> u)</span> &#123;<br>        <span class="hljs-keyword">if</span>(u &gt;= n) &#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; n; j++)<br>                    System.out.print(g[i][j]);<br>                System.out.println();<br>            &#125;<br>            <br>            System.out.println();<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            <span class="hljs-keyword">if</span>(col[i] == <span class="hljs-literal">false</span> &amp;&amp; dg[u+i] == <span class="hljs-literal">false</span> &amp;&amp; udg[u-i+n] == <span class="hljs-literal">false</span>) &#123;<br>                col[i] = <span class="hljs-literal">true</span>;<br>                dg[u+i] = <span class="hljs-literal">true</span>;<br>                udg[u-i+n] = <span class="hljs-literal">true</span>;<br>                g[u][i] = <span class="hljs-string">&#x27;Q&#x27;</span>;<br>                dfs(u+<span class="hljs-number">1</span>);<br>                col[i] = <span class="hljs-literal">false</span>;<br>                dg[i+u] = <span class="hljs-literal">false</span>;<br>                udg[u-i+n] = <span class="hljs-literal">false</span>;<br>                g[u][i] = <span class="hljs-string">&#x27;.&#x27;</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String []args)</span> &#123;<br>        <span class="hljs-type">Scanner</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br>        n = in.nextInt();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; n; j++)<br>                g[i][j] = <span class="hljs-string">&#x27;.&#x27;</span>;<br>        dfs(<span class="hljs-number">0</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -438,7 +381,7 @@ aria-hidden="true">55289_0923cf569c-滑动窗口.PNG</figcaption>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">#滑动窗口</a>
+        <a href="/tags/dfs/">#dfs</a>
       
     </div>
   
@@ -450,8 +393,8 @@ aria-hidden="true">55289_0923cf569c-滑动窗口.PNG</figcaption>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>滑动窗口</div>
-      <div>https://blog.ymswdfg.top/2022/10/15/滑动窗口/</div>
+      <div>n皇后</div>
+      <div>https://blog.ymswdfg.top/2022/10/20/n皇后/</div>
     </div>
     <div class="license-meta">
       
@@ -463,7 +406,7 @@ aria-hidden="true">55289_0923cf569c-滑动窗口.PNG</figcaption>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月15日</div>
+          <div>2022年10月20日</div>
         </div>
       
       
@@ -495,18 +438,12 @@ aria-hidden="true">55289_0923cf569c-滑动窗口.PNG</figcaption>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/16/%E5%AF%B9%E6%8E%A5qq%E7%99%BB%E5%BD%95/" title="对接qq登录">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">对接qq登录</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/13/%E5%8D%95%E8%B0%83%E6%A0%88/" title="单调栈">
-                        <span class="hidden-mobile">单调栈</span>
+                      <a href="/2022/10/20/%E6%8E%92%E5%88%97%E6%95%B0%E5%AD%97/" title="排列数字">
+                        <span class="hidden-mobile">排列数字</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
