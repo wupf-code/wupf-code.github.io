@@ -19,7 +19,7 @@
     <meta name="description" content="一、什么是进程、线程、协程，他们之间的关系是怎样的 进程: 本质上是一个独立执行的程序，进程是操作系统进行资源分配和调度的基本概念，操作系统进行资源分配和调度的一个独立单位 线程:是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。一个进程中可以并发多个线程，每条线程执行不同的任务，切换受系统控制。 协程: 又称为微线程，是一种用户态的轻量级线程，协程不像线">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发编程技术点(一)">
-<meta property="og:url" content="https://blog.ymswdfg.top/2022/10/03/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF%E7%82%B9(%E4%B8%80)/index.html">
+<meta property="og:url" content="https://wupf-code.github.io/2022/10/03/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E6%8A%80%E6%9C%AF%E7%82%B9(%E4%B8%80)/index.html">
 <meta property="og:site_name" content="Ymswdfg">
 <meta property="og:description" content="一、什么是进程、线程、协程，他们之间的关系是怎样的 进程: 本质上是一个独立执行的程序，进程是操作系统进行资源分配和调度的基本概念，操作系统进行资源分配和调度的一个独立单位 线程:是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。一个进程中可以并发多个线程，每条线程执行不同的任务，切换受系统控制。 协程: 又称为微线程，是一种用户态的轻量级线程，协程不像线">
 <meta property="og:locale" content="zh_CN">
@@ -71,7 +71,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"blog.ymswdfg.top","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"wupf-code.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -424,7 +424,7 @@ System.out.println(&quot;主线程名称：&quot;+Thread.currentThread().getName
   <div class="license-box my-3">
     <div class="license-title">
       <div>并发编程技术点(一)</div>
-      <div>https://blog.ymswdfg.top/2022/10/03/并发编程技术点(一)/</div>
+      <div>https://wupf-code.github.io/2022/10/03/并发编程技术点(一)/</div>
     </div>
     <div class="license-meta">
       
