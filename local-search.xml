@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>makefile学习</title>
+    <link href="/2023/10/06/makefile%E5%AD%A6%E4%B9%A0/"/>
+    <url>/2023/10/06/makefile%E5%AD%A6%E4%B9%A0/</url>
+    
+    <content type="html"><![CDATA[<h3 id="makefile文件命名和规则">makefile文件命名和规则</h3><h4 id="文件命名">文件命名</h4><p>makefile或者Makefile</p><h4 id="makefile规则">makefile规则</h4><figure><imgsrc="https://z4a.net/images/2023/10/06/2023-10-06-19-34-06-image.png"alt="2023-10-06-19-34-06-image.png" /><figcaptionaria-hidden="true">2023-10-06-19-34-06-image.png</figcaption></figure><p>例如创建makefile文件，内容如下</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">app:sub.c mult.c div.c main.c</span><br>    gcc sub.c mult.c div.c main.c -o app<br></code></pre></td></tr></table></figure><p>执行make命令，会在当前目录下寻找makefile文件。</p><h4 id="工作原理">工作原理</h4><figure><imgsrc="https://z4a.net/images/2023/10/06/2023-10-06-19-41-11-image.png"alt="2023-10-06-19-41-11-image.png" /><figcaptionaria-hidden="true">2023-10-06-19-41-11-image.png</figcaption></figure><h4 id="变量">变量</h4><figure><img src="https://z4a.net/images/2023/10/06/-2023-10-06-195052.png"alt="-2023-10-06-195052.png" /><figcaption aria-hidden="true">-2023-10-06-195052.png</figcaption></figure><h4 id="模式匹配">模式匹配</h4><figure><imgsrc="https://z4a.net/images/2023/10/06/2023-10-06-20-01-51-image.png"alt="2023-10-06-20-01-51-image.png" /><figcaptionaria-hidden="true">2023-10-06-20-01-51-image.png</figcaption></figure><h4 id="函数">函数</h4>]]></content>
+    
+    
+    <categories>
+      
+      <category>Linux编程</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>makefile</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>单链表快速排序</title>
     <link href="/2022/11/03/%E5%8D%95%E9%93%BE%E8%A1%A8%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"/>
     <url>/2022/11/03/%E5%8D%95%E9%93%BE%E8%A1%A8%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
